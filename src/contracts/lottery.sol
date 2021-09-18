@@ -43,6 +43,10 @@ contract Lottery {
         lastWinner = players[index];
         players[index].transfer(address(this).balance);
         noOfPlayers = 0;
+        for (uint256 i = 0; i < players.length; i++) {
+            address funder = players[i];
+            uniquePlayers[funder] = 0;
+        }
         players = new address payable[](0);
     }
 

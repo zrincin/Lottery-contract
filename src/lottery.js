@@ -1,27 +1,19 @@
 import web3 from "./web3";
 
-const LOTTO_ADDR = "0x569800dd686C317B030f12F30aBD3052fCD868cB";
-
+const LOTTO_ADDR = "0x8aFfC4AC74b8FEd61E1C4B1c8Cd1f43EdB5217Ba";
 
 const LOTTO_ABI = [
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
 	{
 		"inputs": [],
 		"name": "enter",
 		"outputs": [],
 		"stateMutability": "payable",
 		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "pickWinner",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
 	},
 	{
 		"inputs": [],
@@ -86,6 +78,13 @@ const LOTTO_ABI = [
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "pickWinner",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{

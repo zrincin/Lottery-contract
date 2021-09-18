@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import web3 from './web3';
 import lottery from './lottery';
-import { Button, ButtonContent, Input, Icon } from 'semantic-ui-react'
-import 'semantic-ui-css/semantic.min.css'
+import { Button, ButtonContent, Input, Icon } from 'semantic-ui-react';
+import 'semantic-ui-css/semantic.min.css';
+import './App.css';
 
 class App extends Component {
 
@@ -83,22 +84,22 @@ class App extends Component {
 
     render() {
         return (
-            <div style={{ backgroundColor: "#40E0D0", paddingLeft: 10, paddingTop: 10}}>
+            <div class="container" >
                 <h1><b><u>LOTTERY CONTRACT</u></b></h1>
-                <div>
+                <div style={{}}>
                 <ul style={{ listStyle: "square" }}>
                     <li>
-                        <p>This contract is managed by <b>{this.state.manager}</b></p>
+                        <p>This contract is managed by <b> {this.state.manager} </b></p>
                     </li>
                     <li>
-                        <p>There are currently <b>{ this.state.noOfPlayers } persons </b>competing to win <b>{web3.utils.fromWei(this.state.balance, 'ether')} Ether</b>  (<b>{this.state.players.length} transactions</b> in total) </p>
+                        <p>There are currently <b>{ this.state.noOfPlayers } persons</b> entered competing to win<b> {web3.utils.fromWei(this.state.balance, 'ether')} Ether </b>(<b>{this.state.players.length} transactions</b> made in total)</p>
                     </li>
                     <li>
-                        <p>Last winner was <b>{this.state.lastWinner}</b></p>
+                        <p>Last winner was <b> {this.state.lastWinner} </b></p>
                     </li>
                 </ul>
                 </div>
-                <hr />
+                
                 <form onSubmit={this.onSubmit}>
                     <h3>Want to try your luck?</h3>
                     <div>
@@ -116,16 +117,16 @@ class App extends Component {
                         <ButtonContent visible>Enter</ButtonContent>
                     </Button>
                 </form>
-                <hr />
+             
                 <h3>Ready to pick a winner?</h3>
                 <Button animated="fade" color="red" loading={this.state.loadingBtn2} onClick={this.onClick}>
                     <ButtonContent visible> Only manager </ButtonContent>
                     <ButtonContent hidden > Pick a winner </ButtonContent>
                 </Button>
-                <hr />
+               
                 <h1>{this.state.message}</h1>
                 <br /><br /><br /> <br /><br />
-                <footer>
+                <footer style={{backgroundColor: "#728DB9", position: "fixed", width: "100%", left: 0, bottom: 0, marginTop: "100px"}}>
                     <div style={{textAlign: "center"}}>&copy; ZrinCin, 2021. </div>
                 </footer>
             </div>

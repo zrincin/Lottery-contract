@@ -1,0 +1,6 @@
+.container {
+  background: url("./img/ETH.jpeg") no-repeat center center/cover;
+  height: 100vh;
+  padding-left: 10px;
+  padding-top: 10px;
+}
