@@ -4,6 +4,8 @@ import lottery from "./lottery";
 import { Button, ButtonContent, Input, Icon } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import "./App.css";
+import Header from "./Header";
+import axios from "axios";
 
 const App = () => {
   const [manager, setManager] = useState("");
@@ -33,6 +35,30 @@ const App = () => {
     };
 
     getInfo();
+  }, []);
+
+  const [coinData, setCoinData] = useState([]);
+
+  useEffect(() => {
+    const getCoins = async () => {
+      const response = await axios.get("https://api.coinpaprika.com/v1/coins");
+      const coinIDs = response.data.slice(0, 8).map((coin) => coin.id);
+      const tickerURL = "https://api.coinpaprika.com/v1/tickers/";
+      const promises = coinIDs.map((id) => axios.get(tickerURL + id));
+      const coinDataAll = await Promise.all(promises);
+      const newCoinData = coinDataAll.map((response) => {
+        const coin = response.data;
+        const price = coin.quotes.USD.price;
+        return {
+          key: coin.id,
+          name: coin.name,
+          ticker: coin.symbol,
+          price: parseFloat(Number(price).toFixed(3)),
+        };
+      });
+      setCoinData(newCoinData);
+    };
+    getCoins();
   }, []);
 
   const handleSubmit = async (e) => {
@@ -70,7 +96,7 @@ const App = () => {
     }, 3000);
   };
 
-  const handleClick = async (e) => {
+  const handleClick = async () => {
     const accounts = await web3.eth.getAccounts();
     setMessage("Picking a winner...");
     setLoadingBtn2(true);
@@ -92,7 +118,8 @@ const App = () => {
   };
 
   return (
-    <div class="container">
+    <div className="container">
+      <Header data={coinData} />
       <h1>
         <b>
           <u>LOTTERY</u>
@@ -139,7 +166,7 @@ const App = () => {
           primary
           loading={loadingBtn1}
           animated="vertical"
-          style={{ marginTop: 10 }}
+          style={{ marginTop: "20px" }}
         >
           <ButtonContent hidden>
             <Icon name="play" />
