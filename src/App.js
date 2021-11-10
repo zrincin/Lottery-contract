@@ -42,7 +42,7 @@ const App = () => {
   useEffect(() => {
     const getCoins = async () => {
       const response = await axios.get("https://api.coinpaprika.com/v1/coins");
-      const coinIDs = response.data.slice(0, 8).map((coin) => coin.id);
+      const coinIDs = response.data.slice(0, 10).map((coin) => coin.id);
       const tickerURL = "https://api.coinpaprika.com/v1/tickers/";
       const promises = coinIDs.map((id) => axios.get(tickerURL + id));
       const coinDataAll = await Promise.all(promises);
@@ -53,7 +53,7 @@ const App = () => {
           key: coin.id,
           name: coin.name,
           ticker: coin.symbol,
-          price: parseFloat(Number(price).toFixed(3)),
+          price: parseFloat(Number(price).toFixed(2)),
         };
       });
       setCoinData(newCoinData);
