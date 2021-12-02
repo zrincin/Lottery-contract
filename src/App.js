@@ -38,7 +38,7 @@ const App = () => {
   }, []);
 
   const [coinData, setCoinData] = useState([]);
-
+  // CoinPaprika API interaction
   useEffect(() => {
     const getCoins = async () => {
       const response = await axios.get("https://api.coinpaprika.com/v1/coins");
@@ -68,9 +68,7 @@ const App = () => {
       setMessage(
         "Please enter the amount of Ether you wish to send (must be greater than 0.)"
       );
-      setTimeout(() => {
-        window.location.reload();
-      }, 3000);
+      setTimeout(() => setMessage(""), 3000);
       return;
     }
 
@@ -85,15 +83,17 @@ const App = () => {
         value: web3.utils.toWei(value, "ether"),
       });
       setMessage("You're now entered!");
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
     } catch (error) {
       setMessage("You declined to enter or amount too low. Please try again.");
+      setTimeout(() => setMessage(""), 3000);
     }
 
     setLoadingBtn1(false);
-    setDisabledInput(true);
-    setTimeout(() => {
-      window.location.reload();
-    }, 3000);
+    setDisabledInput(false);
+    setValue("");
   };
 
   const handleClick = async () => {
@@ -105,16 +105,17 @@ const App = () => {
       await lottery.methods.pickWinner().send({ from: accounts[0] });
       const winner = await lottery.methods.lastWinner().call();
       setMessage(`Winner chosen! ${winner} has won.`);
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
     } catch (error) {
       setMessage(
         "Either you're not the manager, or you declined the transaction."
       );
+      setTimeout(() => setMessage(""), 3000);
     }
 
     setLoadingBtn2(false);
-    setTimeout(() => {
-      window.location.reload();
-    }, 5000);
   };
 
   return (
@@ -123,10 +124,15 @@ const App = () => {
       <h1>
         <b>
           <u>LOTTERY</u>
+          <span>
+            <h4>
+              <b> @ {lottery.options.address} (Rinkeby) </b>
+            </h4>
+          </span>
         </b>
       </h1>
       <div>
-        <ul style={{ listStyle: "square" }}>
+        <ul style={{ listStyle: "square", marginLeft: -20 }}>
           <li>
             <p>
               This contract is managed by <b> {manager} </b>
@@ -134,7 +140,7 @@ const App = () => {
           </li>
           <li>
             <p>
-              There are currently <b>{noOfPlayers} persons</b> entered competing
+              There are currently <b>{noOfPlayers} players</b> entered competing
               to win
               <b> {web3.utils.fromWei(balance, "ether")} Ether </b>(
               <b>{players.length} transactions</b> made in total)
@@ -185,11 +191,7 @@ const App = () => {
         <ButtonContent hidden> Pick a winner </ButtonContent>
       </Button>
       <h1>{message}</h1>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+      <br /> <br /> <br /> <br /> <br />
       <footer
         style={{
           backgroundColor: "#728DB9",
