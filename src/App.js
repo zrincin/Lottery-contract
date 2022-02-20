@@ -202,7 +202,10 @@ const App = () => {
           marginTop: "100px",
         }}
       >
-        <div style={{ textAlign: "center" }}>&copy; ZrinCin, 2021. </div>
+        <div style={{ textAlign: "center" }}>
+          &copy; ZrinCin, {new Date().getFullYear()}
+          {"."}
+        </div>
       </footer>
     </div>
   );
