@@ -2,13 +2,12 @@ import Web3 from "web3";
 
 let web3;
 
-// Modern DAPP browsers
+// Modern dApp browsers
 if (window.ethereum) {
-  window.ethereum.request({ method: "eth_requestAccounts" }); // instead of "window.ethereum.enable()" - deprecated
   web3 = new Web3(window.ethereum);
 }
 
-// Legacy DAPP browsers
+// Legacy dApp browsers
 else if (window.web3) {
   web3 = new Web3(window.web3.currentProvider);
 } else {
